@@ -1,25 +1,24 @@
+import express, { response } from "express";
+import { request } from "http";
 
-// ⁡⁣⁣⁢Forklaring:
+const app = express();
+const port = 4000;
 
-// http: indbygget Node modul med forskellige server funktioner
-// createServer: metode på http modul som kan oprette en server
-// request: Anmodningen vi sender til serveren.
-// response: Svaret vi modtager fra serveren.
-// listen: En callback-funktion med den port, som vores server skal lytte på. I dette tilfælde er den sat til port 4000.
-// Prøv nu at køre kommandoen⁡
-import http, { request } from "http"
+app.get("/", (request, response) => {
 
-// Definerer porten, som serveren skal køre på.
-// Du kan ændre portnummeret ved at tilpasse værdien nedenfor.
-const port = 4000;  // Skift '4000' til et andet nummer, hvis du vil bruge en anden port.
+    response.send("Velkommen til min side");
+});
 
-http.createServer((request,response)=>{
-    response.writeHead(200,{"Content":"text/plain"})
-    response.end("Hello world")
+app.get("/about", (request, response) => {
 
-    console.log("server responede with helllo world");
+    response.send("Dette er about siden...");
+});
 
-}).listen(port,()=>{
-    console.log(`server kører på port http//localhost:${port}`);
+app.get("/contact", (request, response) => {
 
-})
+    response.send("Dette er kontakt siden...");
+});
+
+app.listen(port, () => {
+    console.log(`Server kører på http://localhost:${port}`);
+});
