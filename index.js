@@ -1,7 +1,10 @@
 import express from "express";
+import dotenv from "dotenv"
 
+dotenv.config()
+const port =process.env.PORT || 4000 // eller mojer menyat svoy port kakoy ti hochesh, v teminale mojesh uvidet izmenenie
 const app = express();
-const port = 4000;
+
 
 // Forside (Root)
 app.get("/", (request, response) => {
