@@ -1,5 +1,7 @@
-import express from "express";
+import express, { response } from "express";
 import dotenv from "dotenv"
+import { request } from "http";
+import sequelize from "./Config/sequelizeConfig.js";
 
 dotenv.config()
 const port =process.env.PORT || 4000 // eller mojer menyat svoy port kakoy ti hochesh, v teminale mojesh uvidet izmenenie
@@ -7,9 +9,19 @@ const app = express();
 
 
 // Forside (Root)
-app.get("/", (request, response) => {
+app.get("/", async(request, response) => {
     response.send("Velkommen til forsiden!");
 });
+app.get("/test", async (request, response) => {
+    try {
+        await sequelize.authenticate();
+        response.send("Forbindelse til databasen er succesfuld!");
+    } catch (error) {
+        console.error(`Fejl! Kunne ikke forbinde til databasen: ${error}`);
+        response.status(500).send("Kunne ikke forbinde til databasen.");
+    }
+});
+
 
 // Biler til salg
 app.get("/biler", (request, response) => {
